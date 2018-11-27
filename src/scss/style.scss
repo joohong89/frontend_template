@@ -1,0 +1,53 @@
+
+$error-text-color : #d9534f;
+$h1-text-size: 36px;
+$p-text-size: 18px;
+$font-family: "Trebuchet MS", sans-serif, Arial;
+
+
+body{
+	font-family: $font-family;
+}
+
+.red {
+    color: $error-text-color;
+}
+
+.content {
+    text-align: center;
+    font-weight: 200;
+    line-height: 2.1428571435;
+    color: inherit;
+    padding: 10px 0;
+	padding-right: 0px;
+	padding-left: 0px;
+    background-color: transparent;
+	margin: 20px 0;
+}
+
+@media screen and (min-width:768px){
+	.content h1, .content .h1 {
+		font-size: $h1-text-size;
+	}
+
+}
+
+@media screen and (max-width:768px){
+	.content h1, .content .h1 {
+		font-size: 31px;
+	}
+
+}
+
+.content p {
+    margin: 0 0 15px;
+    font-size: $p-text-size;
+	line-height: 1.4;
+} 
+
+
+h1 {
+	margin: 7px 0 5px;
+	font-weight: 500;
+	line-height: 1.1;
+}
