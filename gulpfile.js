@@ -60,13 +60,18 @@ gulp.task('build', ['clean'], function () {
 	gulp.src(src_path + 'scss/**/*.scss') // Gets all files ending with .scss in app/scss and children dirs
 		.pipe(sass())
 		.pipe(csso())
-		.pipe(gulp.dest(dist_path_css))
+		.pipe(gulp.dest(dist_path))
 	
 	gulp.src(vendorFont)
        .pipe(gulp.dest(dist_path_font));
 	   
-	gulp.src(src_path + '*.html')
+	gulp.src(src_path + '/**/*.html')
+		.pipe(htmlmin({ collapseWhitespace: true }))   
         .pipe(gulp.dest(dist_path));
+		
+	gulp.src(src_path + '**/*.js')
+		.pipe(uglify())
+		.pipe(gulp.dest(dist_path))
 		
 });
 
@@ -80,15 +85,17 @@ gulp.task('serve', ['clean','watch'], function () {
 	   .pipe(csso())
        .pipe(gulp.dest(tmp_path+'/css'));
 	   
-	   
+	
 	gulp.start('sass');
 	
 	gulp.src(vendorFont)
        .pipe(gulp.dest(tmp_path_font));
 	   
-	gulp.src(src_path + '*.html')
+	gulp.src(src_path + '/**/*.html')
         .pipe(gulp.dest(tmp_path));
-		
+			
+	gulp.src(src_path + '/**/*.js')
+        .pipe(gulp.dest(tmp_path));
 		
 	browserSync.init({
 		server: {
@@ -122,10 +129,11 @@ gulp.task('copy', function(){
 gulp.task('watch', function(){
 	gulp.watch(src_path + 'scss/**/*.scss', ['sass','browserSync']); 
 	gulp.watch(src_path + '**/*.html', ['html','browserSync']); 
+	gulp.watch(src_path + '**/*.js', ['js','browserSync']); 
 });
 
 
-//converts scss to css and minify the output file
+//converts scss to css the output file
 gulp.task('sass', function() {
   return gulp.src(src_path + 'scss/**/*.scss') // Gets all files ending with .scss in app/scss and children dirs
 	.pipe(sass())
@@ -134,18 +142,17 @@ gulp.task('sass', function() {
 
 
 
-//copy html to dist and minify
+//copy html to .tmp
 gulp.task('html', function() {
   return gulp.src(src_path + '**/*.html') // Gets all files ending with .scss in app/scss and children dirs
-   .pipe(htmlmin({ collapseWhitespace: true }))   
+ 
    .pipe(gulp.dest(tmp_path))
 });
 
-//copy js to dist and minify
+//copy js to .tmp
 gulp.task('js', function() {
-  return gulp.src(src_path + '**/*.js') // Gets all files ending with .scss in app/scss and children dirs
-   .pipe(uglify())   
-   .pipe(gulp.dest(dist_path_js))
+  return gulp.src(src_path + '**/*.js')
+   .pipe(gulp.dest(tmp_path))
 });
 
 gulp.task('clean', () => del(['dist','.tmp']));
