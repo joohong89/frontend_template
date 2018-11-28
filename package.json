@@ -1,8 +1,8 @@
 {
-  "name": "unauthorized-page",
+  "name": "Front End Template",
   "version": "1.0.0",
-  "description": "An error page for 401 Unauthorized error.",
-  "main": "index.js",
+  "description": "Frontend Project Template",
+  "main": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,6 +17,7 @@
     "gulp-connect": "^5.6.1",
     "gulp-csso": "^3.0.1",
     "gulp-htmlmin": "^5.0.1",
+    "gulp-npm-dist": "^1.0.2",
     "gulp-sass": "^4.0.2",
     "gulp-uglify": "^3.0.1"
   },

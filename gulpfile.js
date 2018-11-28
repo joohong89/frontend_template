@@ -8,6 +8,7 @@ var sass = require('gulp-sass');
 var htmlmin = require('gulp-htmlmin');
 var uglify = require('gulp-uglify');
 var browserSync = require('browser-sync').create();
+var npmDist = require('gulp-npm-dist');
 
 
 var vendorCSS = ['./node_modules/font-awesome/css/*.min.css'];
@@ -60,7 +61,7 @@ gulp.task('build', ['clean'], function () {
 	gulp.src(src_path + 'scss/**/*.scss') // Gets all files ending with .scss in app/scss and children dirs
 		.pipe(sass())
 		.pipe(csso())
-		.pipe(gulp.dest(dist_path))
+		.pipe(gulp.dest(dist_path_css))
 	
 	gulp.src(vendorFont)
        .pipe(gulp.dest(dist_path_font));
@@ -138,6 +139,8 @@ gulp.task('sass', function() {
   return gulp.src(src_path + 'scss/**/*.scss') // Gets all files ending with .scss in app/scss and children dirs
 	.pipe(sass())
 	.pipe(gulp.dest(tmp_path_css))
+	// Auto-prefix css styles for cross browser compatibility
+    .pipe(autoprefixer({browsers: AUTOPREFIXER_BROWSERS}));
 });
 
 
