@@ -9,12 +9,6 @@ var useref = require('gulp-useref');
 var gulpif = require('gulp-if');
 
 
-var vendorCSS = ['./node_modules/font-awesome/css/*.min.css'];
-				 
-var vendorFont = ['./node_modules/font-awesome/fonts/*'];		
-
-var vendorJS = [];	 
-
 const AUTOPREFIXER_BROWSERS = [
   'ie >= 10',
   'ie_mob >= 10',
@@ -43,8 +37,12 @@ const src_path_font = src_path + 'fonts';
 //gulp.task('default', ['html', 'css']);
 
 //for production build
-gulp.task('build', ['clean','buildSass', 'move-images','move-fonts'], function(){
-	gulp.src('*.html')
+gulp.task('build', ['clean','buildSass'], function(){
+	
+	gulp.start('move-images');
+	gulp.start('move-fonts');
+	
+	gulp.src(src_path + '*.html')
 	.pipe(useref())
 	.pipe(gulpif('*.js', uglify()))
 	.pipe(gulpif('*.css', csso()))
@@ -71,7 +69,7 @@ gulp.task('serve', ['buildSass', 'watch'], function () {
 		server: {
 			baseDir: src_path,
 			routes: {
-				"/node_modules": "node_modules"
+				"../node_modules": "node_modules"
 			}
 		
 		},	
@@ -96,8 +94,8 @@ gulp.task('move-fonts', function() {
 
 //move images to dist folder
 gulp.task('move-images', function() {
-    return gulp.src('src/img/**/*')
-        .pipe(gulp.dest('src/img'))
+    return gulp.src(src_path + 'img/**/*.{jpg,svg,png,gif}')
+        .pipe(gulp.dest('dist/img'))
 });
 
 
