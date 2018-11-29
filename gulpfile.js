@@ -69,7 +69,7 @@ gulp.task('serve', ['buildSass', 'watch'], function () {
 		server: {
 			baseDir: src_path,
 			routes: {
-				"../node_modules": "node_modules"
+				"/node_modules": "node_modules"
 			}
 		
 		},	
