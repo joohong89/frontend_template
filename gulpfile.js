@@ -81,7 +81,7 @@ gulp.task('serve', ['buildSass', 'watch'], function () {
 
 //watch for changes
 gulp.task('watch', function(){
-	gulp.watch(src_path + 'scss/**/*.scss', ['sass','browserSync']); 
+	gulp.watch(src_path + 'scss/**/*.scss', ['buildSass','browserSync']); 
 	gulp.watch(src_path + '**/*.html', ['browserSync']); 
 	gulp.watch(src_path + '**/*.js', ['browserSync']); 
 });
